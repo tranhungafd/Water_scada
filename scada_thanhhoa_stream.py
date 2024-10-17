@@ -5,6 +5,9 @@ import joblib
 import os
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
+import plotly.express as px
+import os
+import glob
 
 # Cấu hình trang Streamlit
 st.set_page_config(layout="wide")
@@ -42,9 +45,15 @@ def load_data(filename):
     data = pd.concat(chunks, axis=0)
     return data
 
-# Đường dẫn tới file CSV (hãy chỉnh đường dẫn phù hợp với hệ thống của bạn)
-csv_file_path = r'd:\2.WORK_DAILY\4.eKGIS_Data Science\Water\data\iot_water_thanhhoa.csv'
-df = load_data(csv_file_path)
+# Lấy đường dẫn đến thư mục hiện tại
+path = os.getcwd()  # Đường dẫn đến thư mục hiện tại
+
+# Tìm tất cả file CSV trong thư mục
+all_files = glob.glob(os.path.join(path, "*.csv"))
+
+# Sử dụng list comprehension để đọc từng file CSV và gộp chúng lại
+df_list = [pd.read_csv(file) for file in all_files]
+df = pd.concat(df_list, ignore_index=True)
 
 # Chuyển đổi timestamp thành datetime
 df['datetime'] = pd.to_datetime(df['ts'], unit='s')
