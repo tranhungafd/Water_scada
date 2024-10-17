@@ -1,6 +1,0 @@
-Streamlit demo
-1. Select box chọn ra các thiết bị.
-2. Biểu đồ đường thể hiện của dữ liệu đó
-3. Đầu vào: time, dbl_v
-4. Model dự đoán
-5. Bảng kết quả điểm dự đoán
